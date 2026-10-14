@@ -1,0 +1,81 @@
+erDiagram
+    CONFERENCES ||--o{ TRACKS : has
+    TRACKS ||--o{ PAPERS : categorizes
+    AUTHORS ||--o{ PAPERS : submits
+    PAPERS ||--o{ PAPER_VERSIONS : has
+    PAPERS ||--o{ ASSIGNMENTS : receives
+    REVIEWERS ||--o{ ASSIGNMENTS : handles
+    ASSIGNMENTS ||--o| REVIEWS : produces
+    PAPERS ||--o| DECISIONS : receives
+    PAPERS ||--o| PRESENTATION_SLOTS : scheduled_for
+
+    CONFERENCES {
+      int id PK
+      text name
+      int year
+      text venue
+    }
+    TRACKS {
+      int id PK
+      int conference_id FK
+      text name
+    }
+    AUTHORS {
+      int id PK
+      text full_name
+      text email UK
+      text affiliation
+    }
+    PAPERS {
+      int id PK
+      text submission_code UK
+      text title
+      text abstract
+      int track_id FK
+      int corresponding_author_id FK
+      text status
+      text submitted_at
+    }
+    PAPER_VERSIONS {
+      int id PK
+      int paper_id FK
+      int version_no
+      text file_name
+      text uploaded_at
+    }
+    REVIEWERS {
+      int id PK
+      text full_name
+      text email UK
+      text expertise
+    }
+    ASSIGNMENTS {
+      int id PK
+      int paper_id FK
+      int reviewer_id FK
+      text assigned_at
+    }
+    REVIEWS {
+      int id PK
+      int assignment_id FK_UK
+      int originality
+      int quality
+      int clarity
+      text recommendation
+      text comments
+      text reviewed_at
+    }
+    DECISIONS {
+      int id PK
+      int paper_id FK_UK
+      text decision
+      text notes
+      text decided_at
+    }
+    PRESENTATION_SLOTS {
+      int id PK
+      int paper_id FK_UK
+      text room
+      text starts_at
+      int duration_minutes
+    }
